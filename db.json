@@ -11,6 +11,12 @@
       "user_id": 1,
       "title": "Fazer um to do list com vue3",
       "completed": false
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "title": "Utilizar vuex",
+      "completed": true
     }
   ],
   "users": [
