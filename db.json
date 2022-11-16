@@ -1,0 +1,23 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "title": "Estudar Vue3",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "title": "Fazer um to do list com vue3",
+      "completed": false
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "João",
+      "email": "joão@email.com"
+    }
+  ]
+}
