@@ -20,6 +20,14 @@ export const store = createStore<State>({
     addTodo(state, payload: TodoType) {
       state.todos = [...state.todos, payload];
     },
+    changeTodoState(state, payload: { id: number; completed: boolean }) {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === payload.id) {
+          todo.completed = payload.completed;
+        }
+        return todo;
+      });
+    },
   },
   actions: {
     async getTodos({ commit }) {
@@ -34,6 +42,13 @@ export const store = createStore<State>({
         completed: false,
       });
       commit('addTodo', data);
+      return data;
+    },
+    async changeTodoState({ commit }, payload: { id: number; completed: boolean }) {
+      const { data } = await api.patch<TodoType>(`/todos/${payload.id}`, {
+        completed: payload.completed,
+      });
+      commit('changeTodoState', payload);
       return data;
     },
   },
