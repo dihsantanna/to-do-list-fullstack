@@ -7,6 +7,10 @@ export interface State {
   todos: TodoType[];
 }
 
+export interface Getters {
+  getTodos: TodoType[];
+}
+
 export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
@@ -72,6 +76,13 @@ export const store = createStore<State>({
       });
       commit('editTodo', payload);
       return data;
+    },
+  },
+  getters: {
+    sortedTodos(state) {
+      return state.todos
+        .sort((a, b) => b.id - a.id)
+        .sort((a, b) => (a.completed ? 1 : 0) - (b.completed ? 1 : 0));
     },
   },
 });
