@@ -17,6 +17,12 @@
       "user_id": 1,
       "title": "Utilizar vuex",
       "completed": true
+    },
+    {
+      "user_id": 1,
+      "title": "Adicionar função de marcar tarefas realizadas",
+      "completed": false,
+      "id": 4
     }
   ],
   "users": [

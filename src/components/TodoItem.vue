@@ -2,7 +2,7 @@
 import CheckIcon from '@/assets/check.svg?component';
 import XIcon from '@/assets/x.svg?component';
 import type { TodoType } from '@/types';
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<{
   todo: TodoType;
