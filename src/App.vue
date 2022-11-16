@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TodoListView from '@/views/TodoListView.vue';
+</script>
 
 <template>
-  <h1 class="text-2xl font-bold text-zinc-400 text-center">to do list</h1>
+  <TodoListView />
 </template>
