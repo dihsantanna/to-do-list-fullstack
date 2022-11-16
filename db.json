@@ -21,7 +21,7 @@
     {
       "user_id": 1,
       "title": "Adicionar função de marcar tarefas realizadas",
-      "completed": false,
+      "completed": true,
       "id": 4
     }
   ],

@@ -28,6 +28,9 @@ export const store = createStore<State>({
         return todo;
       });
     },
+    deleteTodo(state, payload: number) {
+      state.todos = state.todos.filter((todo) => todo.id !== payload);
+    },
   },
   actions: {
     async getTodos({ commit }) {
@@ -50,6 +53,10 @@ export const store = createStore<State>({
       });
       commit('changeTodoState', payload);
       return data;
+    },
+    async deleteTodo({ commit }, payload: number) {
+      await api.delete(`/todos/${payload}`);
+      commit('deleteTodo', payload);
     },
   },
 });

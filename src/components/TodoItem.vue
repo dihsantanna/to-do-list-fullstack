@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import CheckIcon from '@/assets/check.svg?component';
+import Spinner from '@/assets/spinner.svg?component';
 import XIcon from '@/assets/x.svg?component';
 import { key } from '@/store';
 import type { TodoType } from '@/types';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { useToast } from 'vue-toast-notification';
 import { useStore } from 'vuex';
 
 const store = useStore(key);
+
+const $toast = useToast();
 
 const props = defineProps<{
   todo: TodoType;
@@ -15,11 +19,20 @@ const props = defineProps<{
 const id = computed(() => props.todo.id);
 const title = computed(() => props.todo.title);
 const completed = computed(() => props.todo.completed);
+const deleting = ref(false);
 
 const toggleCompleted = () => {
   store.dispatch('changeTodoState', {
     id: id.value,
     completed: !completed.value,
+  });
+};
+
+const deleteTodo = () => {
+  deleting.value = true;
+  store.dispatch('deleteTodo', id.value).finally(() => {
+    deleting.value = false;
+    $toast.success('<p class="text-black">Tarefa deletada com sucesso!</p>');
   });
 };
 </script>
@@ -49,8 +62,9 @@ const toggleCompleted = () => {
       </div>
 
       <div class="ml-auto flex items-center justify-center">
-        <button class="focus:outline-none">
-          <XIcon class="w-4 h-4 fill-red-600" />
+        <button @click="deleteTodo" class="focus:outline-none" :disabled="deleting">
+          <XIcon v-if="!deleting" class="w-4 h-4 fill-red-600" />
+          <Spinner v-else class="w-6 h-6" />
         </button>
       </div>
     </div>
