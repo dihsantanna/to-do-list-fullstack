@@ -17,7 +17,7 @@ const props = defineProps<{
 }>();
 
 const id = computed(() => props.todo.id);
-const title = computed(() => props.todo.title);
+const title = ref(props.todo.title);
 const completed = computed(() => props.todo.completed);
 const deleting = ref(false);
 
@@ -35,6 +35,22 @@ const deleteTodo = () => {
     $toast.success('<p class="text-black">Tarefa deletada com sucesso!</p>');
   });
 };
+
+const editTodo = () => {
+  if (title.value.length < 3) {
+    $toast.warning('<p class="text-black">Tarefa deve conter no mínimo 3 caracteres</p>');
+    return;
+  }
+
+  if (title.value !== props.todo.title) {
+    store.dispatch('editTodo', {
+      id: id.value,
+      title: title.value,
+    });
+    $toast.success('<p class="text-black">Tarefa editada com sucesso!</p>');
+    return;
+  }
+};
 </script>
 <template>
   <div
@@ -51,9 +67,11 @@ const deleteTodo = () => {
 
       <div class="w-full">
         <input
+          @keyup.enter="editTodo"
+          @blur="editTodo"
+          v-model="title"
           type="text"
           placeholder="Digite a sua tarefa"
-          :value="title"
           :class="`bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3 ${
             completed ? 'line-through' : ''
           }`"
