@@ -54,9 +54,11 @@ const editTodo = () => {
 </script>
 <template>
   <div
-    class="bg-gray-300 rounded-sm md:hover:scale-[1.02] md:transition-all md:duration-500"
+    class="bg-gray-900 dark:bg-gray-100 rounded-sm md:hover:scale-[1.02] md:transition-all md:duration-500"
   >
-    <div class="flex items-center px-4 py-3 border-b border-gray-400 last:border-b-0">
+    <div
+      class="flex items-center px-4 py-3 border-b border-gray-600 dark:border-gray-400 last:border-b-0"
+    >
       <div class="flex items-center justify-center mr-2">
         <button @click="toggleCompleted">
           <CheckIcon
@@ -72,7 +74,7 @@ const editTodo = () => {
           v-model="title"
           type="text"
           placeholder="Digite a sua tarefa"
-          :class="`bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3 ${
+          :class="`bg-gray-900 dark:bg-gray-100 placeholder-gray-900 dark:placeholder-gray-500 text-gray-100 dark:text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3 ${
             completed ? 'line-through' : ''
           }`"
           :disabled="completed"

@@ -29,17 +29,17 @@ const addTodo = () => {
 <template>
   <form
     @submit.prevent="addTodo"
-    class="flex items-center justify-between px-4 bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3"
+    class="flex items-center justify-between px-4 bg-gray-100 dark:bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3"
   >
     <input
       v-model="title"
       placeholder="Adicione uma nova tarefa ..."
       type="text"
-      class="bg-gray-900 placeholder-gray-500 text-gray-500 font-light focus:outline-none block w-4/5 appearance-none leading-normal py-3 pr-3"
+      class="bg-gray-100 dark:bg-gray-900 dark:placeholder-gray-500 placeholder-gray-900 text-gray-900 dark:text-gray-500 font-light focus:outline-none block w-4/5 appearance-none leading-normal py-3 pr-3"
     />
 
     <button
-      class="text-green-400 text-xs font-semibold focus:outline-none w-1/5 flex items-center justify-center"
+      class="font-bold drop-shadow-sm text-green-400 text-xs dark:font-semibold focus:outline-none w-1/5 flex items-center justify-center"
       type="submit"
     >
       {{ !adding ? 'ADICIONAR' : null }}

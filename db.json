@@ -10,7 +10,7 @@
       "id": 2,
       "user_id": 1,
       "title": "Fazer um to do list com vue3",
-      "completed": false
+      "completed": true
     },
     {
       "id": 3,
