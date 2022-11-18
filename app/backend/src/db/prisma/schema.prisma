@@ -6,3 +6,23 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model User {
+  id        String    @id @default(uuid()) @map("_id")
+  email     String    @unique
+  name      String
+  password  String
+  todos     Todo[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Todo {
+  id        String    @id @default(uuid()) @map("_id")
+  title     String
+  userId    String    @db.String
+  completed Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  User      User      @relation(fields: [userId], references: [id])
+}
