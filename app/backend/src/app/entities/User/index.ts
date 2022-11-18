@@ -17,7 +17,7 @@ export class User implements UserType {
   createdAt?: Date;
   updatedAt?: Date | null;
 
-  constructor (props: UserType) {
+  constructor(props: UserType) {
     this._id = props.id ?? uuid();
     this.name = props.name;
     this.email = props.email;
@@ -26,7 +26,7 @@ export class User implements UserType {
     this.updatedAt = props.updatedAt ?? null;
   }
 
-  get id (): string {
+  get id(): string {
     return this._id;
   }
 }

@@ -1,4 +1,4 @@
-import { router } from '@/api/routes';
+import { router } from '@api/routes';
 import express from 'express';
 
 const app = express();

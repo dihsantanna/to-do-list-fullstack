@@ -4,9 +4,18 @@
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
-      "@/*": [
+      "@src/*": [
         "./src/*"
-      ]
+      ],
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@db/*": [
+        "./src/db/*"
+      ],
     },
     "allowJs": true,
     "esModuleInterop": true,

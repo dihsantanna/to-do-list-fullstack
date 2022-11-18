@@ -17,7 +17,7 @@ export class Todo implements TodoType {
   createdAt?: Date;
   updatedAt?: Date | null;
 
-  constructor (props: TodoType) {
+  constructor(props: TodoType) {
     this._id = props.id ?? uuid();
     this.title = props.title;
     this.userId = props.userId;
@@ -26,7 +26,7 @@ export class Todo implements TodoType {
     this.updatedAt = props.updatedAt ?? null;
   }
 
-  get id (): string {
+  get id(): string {
     return this._id;
   }
 }
