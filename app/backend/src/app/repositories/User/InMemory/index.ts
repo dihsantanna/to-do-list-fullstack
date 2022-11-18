@@ -1,18 +1,22 @@
 import { User } from '@app/entities/User';
-import { IUserRepository } from '../IUserRepository';
+import { DbConnectionRequest, IUserRepository } from '../IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
   readonly users: User[] = [];
 
-  constructor() {}
+  constructor() { }
 
-  async createUser(data: User): Promise<User> {
+  async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) {
+    return callbackWithDBRequest();
+  }
+
+  async create(data: User): Promise<User> {
     this.users.push(data);
 
     return data;
   }
 
-  async findByEmail(email: string): Promise<User | undefined | null> {
-    return this.users.find((user) => user.email === email);
+  async findByEmail(email: string): Promise<User | null> {
+    return this.users.find((user) => user.email === email) ?? null;
   }
 }

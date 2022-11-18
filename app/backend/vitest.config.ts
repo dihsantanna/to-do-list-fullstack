@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     include: ['src/**/*.test.ts'],
-    watch: true,
+    watch: false,
     reporters: 'verbose',
     alias: {
       '@api': fileURLToPath(new URL('./src/api', import.meta.url)),
