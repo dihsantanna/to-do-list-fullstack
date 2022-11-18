@@ -12,6 +12,6 @@ export class CreateUser {
 
     const user = new User(data);
 
-    return await this.userRepository.createUser(user);
+    return this.userRepository.createUser(user);
   }
 }

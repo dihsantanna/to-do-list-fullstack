@@ -7,6 +7,6 @@ export class CreateTodo {
 
   async execute(data: CreateTodoDTO): Promise<Todo> {
     const todo = new Todo(data);
-    return await this.todoRepository.create(todo);
+    return this.todoRepository.create(todo);
   }
 }
