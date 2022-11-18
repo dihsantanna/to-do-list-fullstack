@@ -26,4 +26,18 @@ export class TodoRepositoryInMemory implements ITodoRepository {
 
     return result;
   }
+
+  async changeProgress(id: string, completed: boolean): Promise<Todo> {
+    let result = {} as Todo;
+
+    this.todos = this.todos.map((todo) => {
+      if (todo.id === id) {
+        todo.completed = completed;
+        result = todo;
+      };
+      return todo;
+    });
+
+    return result;
+  }
 }
