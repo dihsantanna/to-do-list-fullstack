@@ -1,7 +1,8 @@
 import { User } from '@app/entities/User';
 import { DbType } from '@db/index';
 import { User as UserModel } from '@prisma/client';
-import { DbConnectionRequest, IUserRepository } from './IUserRepository';
+import { DbConnectionRequest } from '../DbConnectionRequest';
+import { IUserRepository } from './IUserRepository';
 
 export class UserRepository implements IUserRepository {
   constructor(private readonly db: DbType) { }

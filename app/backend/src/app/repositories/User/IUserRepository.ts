@@ -1,6 +1,5 @@
 import { User } from '@app/entities/User';
-
-export type DbConnectionRequest<CallbackResponse> = () => Promise<CallbackResponse>;
+import { DbConnectionRequest } from '../DbConnectionRequest';
 
 export interface IUserRepository {
   create: (user: User) => Promise<User>

@@ -1,5 +1,6 @@
 import { User } from '@app/entities/User';
-import { DbConnectionRequest, IUserRepository } from '../IUserRepository';
+import { DbConnectionRequest } from '@app/repositories/DbConnectionRequest';
+import { IUserRepository } from '../IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
   readonly users: User[] = [];
