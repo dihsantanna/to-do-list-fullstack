@@ -2,7 +2,7 @@ import { User } from '@app/entities/User';
 import { db } from '@db/index';
 import { User as UserModel } from '@prisma/client';
 import { afterEach, beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest';
-import { UserRepository } from './';
+import { UserRepository } from './UserRepository';
 
 const userProp = new User({
   name: 'John Doe',

@@ -2,7 +2,7 @@ import { Todo } from '@app/entities/Todo';
 import { db } from '@db/index';
 import { Todo as TodoModel } from '@prisma/client';
 import { afterEach, beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest';
-import { TodoRepository } from './';
+import { TodoRepository } from './TodoRepository';
 
 const todoProp = new Todo({
   title: 'Todo title',
