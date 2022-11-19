@@ -1,16 +1,21 @@
 import { Todo } from '@app/entities/Todo';
+import { DbConnectionRequest } from '@app/repositories/DbConnectionRequest';
 import { ITodoRepository } from '../ITodoRepository';
 
 export class TodoRepositoryInMemory implements ITodoRepository {
   todos: Todo[] = [];
+
+  async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>): Promise<DbResponse> {
+    return callbackWithDBRequest();
+  }
 
   async create(todo: Todo): Promise<Todo> {
     this.todos.push(todo);
     return todo;
   }
 
-  async findById(id: string): Promise<Todo | undefined | null> {
-    return this.todos.find((todo) => todo.id === id);
+  async findById(id: string): Promise<Todo | null> {
+    return this.todos.find((todo) => todo.id === id) ?? null;
   }
 
   async changeTitle(id: string, title: string): Promise<Todo> {
