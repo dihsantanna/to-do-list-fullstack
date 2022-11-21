@@ -12,11 +12,11 @@ export class ChangeTodoTitle {
     @Inject(TODO_REPOSITORY) private readonly todoRepository: ITodoRepository
   ) { }
 
-  async execute(data: ChangeTodoTitleDTO): Promise<Todo> {
+  execute = async (data: ChangeTodoTitleDTO): Promise<Todo> => {
     const todoExists = await this.todoRepository.findById(data.id);
     if (!todoExists) throw new Error('Todo not exists.');
     return this.todoRepository.changeTitle(data.id, data.title);
-  }
+  };
 }
 
 Container.provide([{ provide: CHANGE_TODO_TITLE, useClass: ChangeTodoTitle }]);

@@ -9,9 +9,9 @@ export const SING_IN_VALIDATE = new InjectionToken('SING_IN_VALIDATE');
 export class SingInValidate {
   constructor(
     @Inject(SING_IN_SCHEMA) private readonly schema: ObjectSchema
-  ) { }
+  ) {}
 
-  async validate(req: Request, res: Response, next: NextFunction) {
+  validate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body;
       await this.schema.validateAsync({ email, password });
@@ -19,7 +19,7 @@ export class SingInValidate {
     } catch (error) {
       res.status(400).json({ error: (error as Error).message });
     }
-  }
+  };
 }
 
 Container.provide([{ provide: SING_IN_VALIDATE, useClass: SingInValidate }]);

@@ -12,14 +12,14 @@ export class UserValidate {
     @Inject(USER_SCHEMA) private readonly schema: ObjectSchema<UserType>
   ) { }
 
-  async validate(req: Request, res: Response, next: NextFunction) {
+  validate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       await this.schema.validateAsync(req.body);
       next();
     } catch (error) {
       res.status(400).json({ error: (error as Error).message });
     }
-  }
+  };
 }
 
 Container.provide([{ provide: USER_VALIDATE, useClass: UserValidate }]);

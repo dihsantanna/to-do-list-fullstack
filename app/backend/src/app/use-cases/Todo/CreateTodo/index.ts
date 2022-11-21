@@ -12,10 +12,10 @@ export class CreateTodo {
     @Inject(TODO_REPOSITORY) private readonly todoRepository: ITodoRepository
   ) { }
 
-  async execute(data: CreateTodoDTO): Promise<Todo> {
+  execute = async (data: CreateTodoDTO): Promise<Todo> => {
     const todo = new Todo(data);
     return this.todoRepository.create(todo);
-  }
+  };
 }
 
 Container.provide([{ provide: CREATE_TODO, useClass: CreateTodo }]);

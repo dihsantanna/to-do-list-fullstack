@@ -11,13 +11,13 @@ export class DeleteTodo {
     @Inject(TODO_REPOSITORY) private readonly todoRepository: ITodoRepository
   ) { }
 
-  async execute(id: string): Promise<Todo> {
+  execute = async (id: string): Promise<Todo> => {
     const todoExists = await this.todoRepository.findById(id);
 
     if (!todoExists) throw new Error('Todo not exists.');
 
     return this.todoRepository.delete(id);
-  }
+  };
 }
 
 Container.provide([{ provide: DELETE_TODO, useClass: DeleteTodo }]);

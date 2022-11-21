@@ -2,7 +2,7 @@ import { User } from '@app/entities/User';
 import { DB, DbType } from '@db/index';
 import { Container, Inject, Injectable, InjectionToken } from '@decorators/di';
 import { User as UserModel } from '@prisma/client';
-import { DbConnectionRequest } from '../DbConnectionRequest';
+import { DbConnectionRequest } from '../DbConnectionRequestType';
 import { IUserRepository } from './IUserRepository';
 
 export const USER_REPOSITORY = new InjectionToken('USER_REPOSITORY');
@@ -13,7 +13,7 @@ export class UserRepository implements IUserRepository {
     @Inject(DB) private readonly db: DbType
   ) { }
 
-  async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) {
+  DbConnection = async <DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) => {
     await this.db.$connect();
 
     const result = await callbackWithDBRequest();
@@ -21,9 +21,9 @@ export class UserRepository implements IUserRepository {
     await this.db.$disconnect();
 
     return result;
-  }
+  };
 
-  async create({ id, email, name, password, createdAt, updatedAt }: User) {
+  create = async ({ id, email, name, password, createdAt, updatedAt }: User) => {
     const user = await this.DbConnection<UserModel>(
       () => this.db.user.create({
         data: {
@@ -38,15 +38,15 @@ export class UserRepository implements IUserRepository {
     );
 
     return new User(user);
-  }
+  };
 
-  async findByEmail(email: string) {
+  findByEmail = async (email: string): Promise<User | null> => {
     const user = await this.DbConnection<UserModel | null>(
       () => this.db.user.findUnique({ where: { email } })
     );
 
     return !user ? null : new User(user);
-  }
+  };
 }
 
 Container.provide([{ provide: USER_REPOSITORY, useClass: UserRepository }]);

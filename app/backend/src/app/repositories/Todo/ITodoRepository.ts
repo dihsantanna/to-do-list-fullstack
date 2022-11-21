@@ -1,5 +1,5 @@
 import { Todo } from '@app/entities/Todo';
-import { DbConnectionRequest } from '../DbConnectionRequest';
+import { DbConnectionRequest } from '../DbConnectionRequestType';
 
 export interface ITodoRepository {
   create: (todo: Todo) => Promise<Todo>

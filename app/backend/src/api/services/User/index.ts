@@ -14,14 +14,14 @@ export class UserService implements IUserService {
     @Inject(USER_SERVICE_PROPS) private readonly useCases: IUserServiceProps
   ) { }
 
-  async create(data: CreateUserRequest): Promise<CreateUserResponse> {
+  create = async (data: CreateUserRequest): Promise<CreateUserResponse> => {
     const password = await hash(data.password, 10);
 
     const user = await this.useCases.create.execute({ ...data, password });
     return user;
-  }
+  };
 
-  async singIn(data: SingInRequest): Promise<SingInResponse> {
+  singIn = async (data: SingInRequest): Promise<SingInResponse> => {
     const user = await this.useCases.findByEmail.execute(data.email);
 
     const checkPass = compareSync(data.password, user.password);
@@ -31,7 +31,7 @@ export class UserService implements IUserService {
     const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1d' });
 
     return token;
-  }
+  };
 }
 
 Container.provide([{ provide: USER_SERVICE, useClass: UserService }]);

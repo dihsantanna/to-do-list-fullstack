@@ -12,11 +12,11 @@ export class ChangeTodoProgress {
     @Inject(TODO_REPOSITORY) private readonly todoRepository: ITodoRepository
   ) {}
 
-  async execute(data: ChangeTodoProgressDTO): Promise<Todo> {
+  execute = async (data: ChangeTodoProgressDTO): Promise<Todo> => {
     const todo = await this.todoRepository.findById(data.id);
     if (!todo) throw new Error('Todo not exists.');
     return this.todoRepository.changeProgress(data.id, data.completed);
-  }
+  };
 }
 
 Container.provide([{ provide: CHANGE_TODO_PROGRESS, useClass: ChangeTodoProgress }]);

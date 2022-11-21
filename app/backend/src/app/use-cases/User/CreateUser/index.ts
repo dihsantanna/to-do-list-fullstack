@@ -12,7 +12,7 @@ export class CreateUser {
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository
   ) { }
 
-  async execute(data: CreateUserDTO) {
+  execute = async (data: CreateUserDTO) => {
     const userExists = await this.userRepository.findByEmail(data.email);
 
     if (userExists) throw new Error('User already exists.');
@@ -20,7 +20,7 @@ export class CreateUser {
     const user = new User(data);
 
     return this.userRepository.create(user);
-  }
+  };
 }
 
 Container.provide([{ provide: CREATE_USER, useClass: CreateUser }]);

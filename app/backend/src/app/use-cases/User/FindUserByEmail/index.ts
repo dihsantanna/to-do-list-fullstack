@@ -10,13 +10,13 @@ export class FindUserByEmail {
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository
   ) { }
 
-  async execute(email: string) {
+  execute = async (email: string) => {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) throw new Error('User not found.');
 
     return user;
-  }
+  };
 }
 
 Container.provide([{ provide: FIND_USER_BY_EMAIL, useClass: FindUserByEmail }]);

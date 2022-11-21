@@ -1,5 +1,5 @@
 import { User } from '@app/entities/User';
-import { DbConnectionRequest } from '@app/repositories/DbConnectionRequest';
+import { DbConnectionRequest } from '@app/repositories/DbConnectionRequestType';
 import { IUserRepository } from '../IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
@@ -7,17 +7,17 @@ export class UserRepositoryInMemory implements IUserRepository {
 
   constructor() { }
 
-  async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) {
+  DbConnection = async <DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) => {
     return callbackWithDBRequest();
-  }
+  };
 
-  async create(data: User): Promise<User> {
+  create = async (data: User): Promise<User> => {
     this.users.push(data);
 
     return data;
-  }
+  };
 
-  async findByEmail(email: string): Promise<User | null> {
+  findByEmail = async (email: string): Promise<User | null> => {
     return this.users.find((user) => user.email === email) ?? null;
-  }
+  };
 }

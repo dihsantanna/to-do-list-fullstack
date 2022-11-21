@@ -1,24 +1,24 @@
 import { Todo } from '@app/entities/Todo';
-import { DbConnectionRequest } from '@app/repositories/DbConnectionRequest';
+import { DbConnectionRequest } from '@app/repositories/DbConnectionRequestType';
 import { ITodoRepository } from '../ITodoRepository';
 
 export class TodoRepositoryInMemory implements ITodoRepository {
   todos: Todo[] = [];
 
-  async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>): Promise<DbResponse> {
+  DbConnection = async <DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>): Promise<DbResponse> => {
     return callbackWithDBRequest();
-  }
+  };
 
-  async create(todo: Todo): Promise<Todo> {
+  create = async (todo: Todo): Promise<Todo> => {
     this.todos.push(todo);
     return todo;
-  }
+  };
 
-  async findById(id: string): Promise<Todo | null> {
+  findById = async (id: string): Promise<Todo | null> => {
     return this.todos.find((todo) => todo.id === id) ?? null;
-  }
+  };
 
-  async changeTitle(id: string, title: string): Promise<Todo> {
+  changeTitle = async (id: string, title: string): Promise<Todo> => {
     let result = {} as Todo;
 
     this.todos = this.todos.map((todo) => {
@@ -30,9 +30,9 @@ export class TodoRepositoryInMemory implements ITodoRepository {
     });
 
     return result;
-  }
+  };
 
-  async changeProgress(id: string, completed: boolean): Promise<Todo> {
+  changeProgress = async (id: string, completed: boolean): Promise<Todo> => {
     let result = {} as Todo;
 
     this.todos = this.todos.map((todo) => {
@@ -44,9 +44,9 @@ export class TodoRepositoryInMemory implements ITodoRepository {
     });
 
     return result;
-  }
+  };
 
-  async delete(id: string): Promise<Todo> {
+  delete = async (id: string): Promise<Todo> => {
     let result = {} as Todo;
 
     this.todos = this.todos.filter((todo) => {
@@ -56,5 +56,5 @@ export class TodoRepositoryInMemory implements ITodoRepository {
     });
 
     return result;
-  }
+  };
 }

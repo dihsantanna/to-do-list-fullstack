@@ -14,7 +14,7 @@ export class UserController implements IUserController {
     @Inject(USER_SERVICE) private readonly service: IUserService
   ) { }
 
-  async create(req: Request, res: Response) {
+  create = async (req: Request, res: Response) => {
     try {
       const { name, email, password } = req.body as UserType;
       const user = await this.service.create({ name, email, password } as UserType);
@@ -22,9 +22,9 @@ export class UserController implements IUserController {
     } catch (error) {
       res.status(status.BAD_REQUEST).json({ error: (error as Error).message });
     }
-  }
+  };
 
-  async singIn(req: Request, res: Response) {
+  singIn = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body as UserType;
       const token = await this.service.singIn({ email, password });
@@ -32,7 +32,7 @@ export class UserController implements IUserController {
     } catch (error) {
       res.status(status.UNAUTHORIZED).json({ error: (error as Error).message });
     }
-  }
+  };
 }
 
 Container.provide([{ provide: USER_CONTROLLER, useClass: UserController }]);
