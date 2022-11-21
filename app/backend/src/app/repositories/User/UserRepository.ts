@@ -1,11 +1,17 @@
 import { User } from '@app/entities/User';
-import { DbType } from '@db/index';
+import { DB, DbType } from '@db/index';
+import { Container, Inject, Injectable, InjectionToken } from '@decorators/di';
 import { User as UserModel } from '@prisma/client';
 import { DbConnectionRequest } from '../DbConnectionRequest';
 import { IUserRepository } from './IUserRepository';
 
+export const USER_REPOSITORY = new InjectionToken('USER_REPOSITORY');
+
+@Injectable()
 export class UserRepository implements IUserRepository {
-  constructor(private readonly db: DbType) { }
+  constructor(
+    @Inject(DB) private readonly db: DbType
+  ) { }
 
   async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) {
     await this.db.$connect();
@@ -42,3 +48,5 @@ export class UserRepository implements IUserRepository {
     return !user ? null : new User(user);
   }
 }
+
+Container.provide([{ provide: USER_REPOSITORY, useClass: UserRepository }]);

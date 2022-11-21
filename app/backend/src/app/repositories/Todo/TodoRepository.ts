@@ -1,11 +1,17 @@
 import { Todo } from '@app/entities/Todo';
-import { DbType } from '@db/index';
+import { DB, DbType } from '@db/index';
+import { Container, Inject, Injectable, InjectionToken } from '@decorators/di';
 import { Todo as TodoModel } from '@prisma/client';
 import { DbConnectionRequest } from '../DbConnectionRequest';
 import { ITodoRepository } from './ITodoRepository';
 
+export const TODO_REPOSITORY = new InjectionToken('TODO_REPOSITORY');
+
+@Injectable()
 export class TodoRepository implements ITodoRepository {
-  constructor(private readonly db: DbType) { }
+  constructor(
+    @Inject(DB) private readonly db: DbType
+  ) { }
 
   async DbConnection<DbResponse>(callbackWithDBRequest: DbConnectionRequest<DbResponse>) {
     await this.db.$connect();
@@ -72,3 +78,5 @@ export class TodoRepository implements ITodoRepository {
     return new Todo(todo);
   }
 }
+
+Container.provide([{ provide: TODO_REPOSITORY, useClass: TodoRepository }]);

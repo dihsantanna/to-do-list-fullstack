@@ -1,10 +1,15 @@
 import { Todo } from '@app/entities/Todo';
 import { ITodoRepository } from '@app/repositories/Todo/ITodoRepository';
+import { TODO_REPOSITORY } from '@app/repositories/Todo/TodoRepository';
+import { Container, Inject, Injectable, InjectionToken } from '@decorators/di';
 import { ChangeTodoProgressDTO } from './ChangeTodoProgressDTO';
 
+export const CHANGE_TODO_PROGRESS = new InjectionToken('CHANGE_TODO_PROGRESS');
+
+@Injectable()
 export class ChangeTodoProgress {
   constructor(
-    private readonly todoRepository: ITodoRepository
+    @Inject(TODO_REPOSITORY) private readonly todoRepository: ITodoRepository
   ) {}
 
   async execute(data: ChangeTodoProgressDTO): Promise<Todo> {
@@ -13,3 +18,5 @@ export class ChangeTodoProgress {
     return this.todoRepository.changeProgress(data.id, data.completed);
   }
 }
+
+Container.provide([{ provide: CHANGE_TODO_PROGRESS, useClass: ChangeTodoProgress }]);
