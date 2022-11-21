@@ -1,9 +1,7 @@
-import { router } from '@api/routes';
-import express from 'express';
 
-const app = express();
+import 'dotenv/config';
+import { app } from './app';
 
-app.use(express.json());
-app.use(router);
+const PORT = process.env.PORT;
 
-export { app };
+app.listen(PORT, () => console.log(`Server is running! Port: ${PORT!}`));
