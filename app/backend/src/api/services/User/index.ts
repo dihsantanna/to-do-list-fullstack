@@ -23,15 +23,15 @@ export class UserService implements IUserService {
   };
 
   singIn = async (data: SingInRequest): Promise<SingInResponse> => {
-    const user = await this.useCases.findByEmail.execute(data.email);
+    const { id, name, email, password } = await this.useCases.findByEmail.execute(data.email);
 
-    const checkPass = compareSync(data.password, user.password);
+    const checkPass = compareSync(data.password, password);
 
     if (!checkPass) throw new Error('Invalid password.');
 
-    const token = Jwt.sign({ email: user.email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    const token = Jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
 
-    return token;
+    return { id, name, email, token };
   };
 
   validate = async (email: string): Promise<string> => {

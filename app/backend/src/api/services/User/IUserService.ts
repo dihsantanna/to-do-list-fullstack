@@ -13,7 +13,7 @@ export interface SingInRequest {
   password: string
 };
 
-export type SingInResponse = string;
+export type SingInResponse = CreateUserResponse;
 
 export interface IUserService {
   create: (data: CreateUserRequest) => Promise<CreateUserResponse>

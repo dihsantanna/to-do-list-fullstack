@@ -27,8 +27,8 @@ export class UserController implements IUserController {
   singIn = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body as UserType;
-      const token = await this.service.singIn({ email, password });
-      res.status(status.OK).json({ token });
+      const user = await this.service.singIn({ email, password });
+      res.status(status.OK).json(user);
     } catch (error) {
       res.status(status.UNAUTHORIZED).json({ error: (error as Error).message });
     }
