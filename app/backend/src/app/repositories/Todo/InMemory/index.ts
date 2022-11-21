@@ -18,6 +18,10 @@ export class TodoRepositoryInMemory implements ITodoRepository {
     return this.todos.find((todo) => todo.id === id) ?? null;
   };
 
+  findByUserId = async (userId: string): Promise<Todo[]> => {
+    return this.todos.filter((todo) => todo.userId === userId);
+  };
+
   changeTitle = async (id: string, title: string): Promise<Todo> => {
     let result = {} as Todo;
 

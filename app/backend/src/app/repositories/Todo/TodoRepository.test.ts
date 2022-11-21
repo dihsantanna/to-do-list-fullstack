@@ -16,6 +16,7 @@ const mockDB = () => {
   db.$disconnect = vi.fn();
   db.todo.create = vi.fn();
   db.todo.findUnique = vi.fn();
+  db.todo.findMany = vi.fn();
   db.todo.update = vi.fn();
   db.todo.delete = vi.fn();
 
@@ -23,6 +24,8 @@ const mockDB = () => {
     .mockResolvedValue({ id, title, userId, completed, createdAt, updatedAt } as TodoModel);
   (db.todo.findUnique as unknown as MockedFunction<typeof db.todo.findUnique>)
     .mockResolvedValue({ id, title, userId, completed, createdAt, updatedAt } as TodoModel);
+  (db.todo.findMany as unknown as MockedFunction<typeof db.todo.findMany>)
+    .mockResolvedValue([{ id, title, userId, completed, createdAt, updatedAt }] as TodoModel[]);
   (db.todo.update as unknown as MockedFunction<typeof db.todo.update>)
     .mockResolvedValue({ id, title, userId, completed, createdAt, updatedAt } as TodoModel);
   (db.todo.delete as unknown as MockedFunction<typeof db.todo.delete>)
@@ -100,6 +103,35 @@ describe('Testando classe TodoRepository', () => {
       const result = await userRepository.findById(id);
 
       expect(result).toBeNull();
+    });
+  });
+
+  describe('Testando método findByUserId:', () => {
+    it('Deve ser possível chamar o método;', async () => {
+      const todoRepository = new TodoRepository(db);
+      await todoRepository.findByUserId(userId);
+
+      expect(db.todo.findMany).toBeCalled();
+    });
+    it('Deve retornar um array de instâncias da classe "Todo";', async () => {
+      const todoRepository = new TodoRepository(db);
+
+      const result = await todoRepository.findByUserId(userId);
+
+      expect(result).toBeInstanceOf(Array);
+      expect(result).toEqual([todoProp]);
+      expect(result[0]).toBeInstanceOf(Todo);
+      expect(result[0].userId).toBe(userId);
+    });
+    it('Deve retornar um array vazio, caso não encontre a tarefas pelo id de usuário passado como parâmetro;', async () => {
+      (db.todo.findMany as unknown as MockedFunction<typeof db.todo.findMany>)
+        .mockResolvedValue([]);
+
+      const userRepository = new TodoRepository(db);
+
+      const result = await userRepository.findByUserId(userId);
+
+      expect(result).toEqual([]);
     });
   });
 

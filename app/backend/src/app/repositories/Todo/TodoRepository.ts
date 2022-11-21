@@ -48,6 +48,14 @@ export class TodoRepository implements ITodoRepository {
     return !todo ? null : new Todo(todo);
   };
 
+  findByUserId = async (userId: string): Promise<Todo[]> => {
+    const todos = await this.DbConnection<TodoModel[]>(
+      () => this.db.todo.findMany({ where: { userId } })
+    );
+
+    return todos.map(todo => new Todo(todo));
+  };
+
   changeTitle = async (id: string, title: string): Promise<Todo> => {
     const todo = await this.DbConnection<TodoModel>(
       () => this.db.todo.update({

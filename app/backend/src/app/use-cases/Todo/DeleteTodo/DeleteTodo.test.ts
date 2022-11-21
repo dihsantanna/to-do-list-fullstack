@@ -6,23 +6,23 @@ import { DeleteTodo } from './';
 describe('Testando a classe DeleteTodo:', () => {
   it('Deve ser ser possível criar uma instância;', () => {
     const repository = new TodoRepositoryInMemory();
-    const changeTodoTitle = new DeleteTodo(repository);
+    const deleteTodo = new DeleteTodo(repository);
 
-    expect(changeTodoTitle).toBeInstanceOf(DeleteTodo);
+    expect(deleteTodo).toBeInstanceOf(DeleteTodo);
   });
   it('Deve ser lançado um erro, caso "todo" não exista;', async () => {
     const repository = new TodoRepositoryInMemory();
-    const changeTodoTitle = new DeleteTodo(repository);
+    const deleteTodo = new DeleteTodo(repository);
 
     try {
-      await changeTodoTitle.execute('todo-id');
+      await deleteTodo.execute('todo-id');
     } catch (error) {
       expect((error as Error).message).toBe('Todo not exists.');
     }
   });
-  it('Deve ser possível deletar o todo e retornar uma instância do "Todo" atualizado.', async () => {
+  it('Deve ser possível deletar o todo e retornar uma instância do "Todo" deletado.', async () => {
     const repository = new TodoRepositoryInMemory();
-    const changeTodoTitle = new DeleteTodo(repository);
+    const deleteTodo = new DeleteTodo(repository);
 
     const todo = new Todo({
       id: 'todo-id',
@@ -32,7 +32,7 @@ describe('Testando a classe DeleteTodo:', () => {
 
     await repository.create(todo);
 
-    const todoDeleted = await changeTodoTitle.execute('todo-id');
+    const todoDeleted = await deleteTodo.execute('todo-id');
 
     expect(todoDeleted).toBeInstanceOf(Todo);
     expect(todoDeleted).toEqual(todo);
