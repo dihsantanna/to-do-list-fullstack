@@ -1,7 +1,12 @@
-import { User, UserType } from '@app/entities/User';
+import { UserType } from '@app/entities/User';
 
 export type CreateUserRequest = UserType;
-export type CreateUserResponse = User;
+export interface CreateUserResponse {
+  id: string
+  name: string
+  email: string
+  token: string
+};
 
 export interface SingInRequest {
   email: string

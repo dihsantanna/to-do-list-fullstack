@@ -17,8 +17,9 @@ export class UserService implements IUserService {
   create = async (data: CreateUserRequest): Promise<CreateUserResponse> => {
     const password = await hash(data.password, 10);
 
-    const user = await this.useCases.create.execute({ ...data, password });
-    return user;
+    const { id, name, email } = await this.useCases.create.execute({ ...data, password });
+    const token = Jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    return { id, name, email, token };
   };
 
   singIn = async (data: SingInRequest): Promise<SingInResponse> => {
