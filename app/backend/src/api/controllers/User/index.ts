@@ -33,6 +33,16 @@ export class UserController implements IUserController {
       res.status(status.UNAUTHORIZED).json({ error: (error as Error).message });
     }
   };
+
+  validate = async (req: Request, res: Response) => {
+    try {
+      const email = req.userEmail as string;
+      const token = await this.service.validate(email);
+      res.status(status.OK).json({ token });
+    } catch (error) {
+      res.status(status.UNAUTHORIZED).json({ error: (error as Error).message });
+    }
+  };
 }
 
 Container.provide([{ provide: USER_CONTROLLER, useClass: UserController }]);
