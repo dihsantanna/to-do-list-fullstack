@@ -1,5 +1,5 @@
 import { Container, Inject, Injectable, InjectionToken } from '@decorators/di';
-import { compareSync, hash } from 'bcrypt';
+import { compareSync, genSalt, hash } from 'bcrypt';
 import 'dotenv/config';
 import Jwt from 'jsonwebtoken';
 import { CreateUserRequest, CreateUserResponse, IUserService, SingInRequest, SingInResponse } from './IUserService';
@@ -15,7 +15,9 @@ export class UserService implements IUserService {
   ) { }
 
   create = async (data: CreateUserRequest): Promise<CreateUserResponse> => {
-    const password = await hash(data.password, 10);
+    const saltRounds = 10;
+    const salt = await genSalt(saltRounds);
+    const password = await hash(data.password, salt);
 
     const { id, name, email } = await this.useCases.create.execute({ ...data, password });
     const token = Jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
