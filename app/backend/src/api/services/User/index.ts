@@ -29,18 +29,13 @@ export class UserService implements IUserService {
 
     if (!checkPass) throw new Error('Invalid password.');
 
-    const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    const token = this.createToken(id, email);
 
     return { id, name, email, token };
   };
 
-  validate = async (email: string): Promise<string> => {
-    const user = await this.useCases.findByEmail.execute(email);
-
-    if (!user) throw new Error('User not exists.');
-
-    const token = Jwt.sign({ email: user.email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
-
+  createToken = (id: string, email: string): string => {
+    const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
     return token;
   };
 }

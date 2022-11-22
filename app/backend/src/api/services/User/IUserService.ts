@@ -18,5 +18,5 @@ export type SingInResponse = CreateUserResponse;
 export interface IUserService {
   create: (data: CreateUserRequest) => Promise<CreateUserResponse>
   singIn: (data: SingInRequest) => Promise<SingInResponse>
-  validate: (email: string) => Promise<string>
+  createToken: (id: string, email: string) => string
 }
