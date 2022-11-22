@@ -17,8 +17,9 @@ export class UserController implements IUserController {
   create = async (req: Request, res: Response) => {
     try {
       const { name, email, password } = req.body as UserType;
-      const user = await this.service.create({ name, email, password } as UserType);
-      res.status(status.CREATED).json(user);
+      const { id, token } = await this.service.create({ name, email, password } as UserType);
+      const response = { _id: id, name, email, token };
+      res.status(status.CREATED).json(response);
     } catch (error) {
       res.status(status.BAD_REQUEST).json({ error: (error as Error).message });
     }
@@ -27,21 +28,18 @@ export class UserController implements IUserController {
   singIn = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body as UserType;
-      const user = await this.service.singIn({ email, password });
-      res.status(status.OK).json(user);
+      const { id, name, token } = await this.service.singIn({ email, password });
+      const response = { _id: id, name, email, token };
+      res.status(status.OK).json(response);
     } catch (error) {
       res.status(status.UNAUTHORIZED).json({ error: (error as Error).message });
     }
   };
 
-  validate = async (req: Request, res: Response) => {
-    try {
-      const email = req.userEmail as string;
-      const token = await this.service.validate(email);
-      res.status(status.OK).json({ token });
-    } catch (error) {
-      res.status(status.UNAUTHORIZED).json({ error: (error as Error).message });
-    }
+  createToken = async (req: Request, res: Response) => {
+    const { userEmail, userId } = req;
+    const token = this.service.createToken(userId!, userEmail!);
+    res.status(status.OK).json({ token });
   };
 }
 

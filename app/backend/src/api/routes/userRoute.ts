@@ -15,6 +15,6 @@ userRoute.post('/users/register', userValidate.validate, userController.create);
 
 userRoute.post('/users/sing-in', singInValidate.validate, userController.singIn);
 
-userRoute.get('/users/validate', tokenValidate.validate, userController.validate);
+userRoute.get('/users/validate', tokenValidate.validate, userController.createToken);
 
 export { userRoute };
