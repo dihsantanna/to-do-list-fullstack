@@ -14,7 +14,9 @@ export class TodoController implements ITodoController {
   ) { }
 
   create = async (req: Request, res: Response) => {
-    const todo = await this.service.create(req.body);
+    const { title } = req.body;
+    const { userId } = req;
+    const todo = await this.service.create({ title, userId: userId as string });
     res.status(status.CREATED).json(todo);
   };
 
@@ -34,7 +36,7 @@ export class TodoController implements ITodoController {
 
   changeTodoProgress = async (req: Request, res: Response) => {
     try {
-      const todo = await this.service.changeTodoProgress(req.params.id, req.body.progress);
+      const todo = await this.service.changeTodoProgress(req.params.id, req.body.completed);
       res.status(status.OK).json(todo);
     } catch (error) {
       res.status(status.BAD_REQUEST).json({ message: (error as Error).message });
