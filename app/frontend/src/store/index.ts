@@ -57,6 +57,12 @@ export const store = createStore<State>({
       commit('setUser', { _id, name, email });
       return data;
     },
+    async singUp({ commit }, payload: { name: string; email: string; password: string }) {
+      const { data } = await api.post<UserType>('/users/register', payload);
+      const { _id, name, email, token } = data;
+      localStorage.setItem('token', token!);
+      commit('setUser', { _id, name, email });
+    },
     async userValidate({ commit }, payload: string) {
       const { data } = await api.get<UserType>('/users/validate', {
         headers: {
