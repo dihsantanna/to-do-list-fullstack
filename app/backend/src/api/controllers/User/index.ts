@@ -36,10 +36,10 @@ export class UserController implements IUserController {
     }
   };
 
-  createToken = async (req: Request, res: Response) => {
+  validate = async (req: Request, res: Response) => {
     const { userEmail, userId } = req;
-    const token = this.service.createToken(userId!, userEmail!);
-    res.status(status.OK).json({ token });
+    const { name, token } = await this.service.validate(userId!, userEmail!);
+    res.status(status.OK).json({ _id: userId, name, email: userEmail, token });
   };
 }
 
