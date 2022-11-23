@@ -20,6 +20,9 @@ export const store = createStore<State>({
     user: {} as UserType,
   },
   mutations: {
+    setUser(state, payload: UserType) {
+      state.user = payload;
+    },
     setTodos(state, payload: TodoType[]) {
       state.todos = payload;
     },
@@ -47,6 +50,27 @@ export const store = createStore<State>({
     },
   },
   actions: {
+    async singIn({ commit }, payload: { email: string; password: string }) {
+      const { data } = await api.post<UserType>('/users/sing-in', payload);
+      const { _id, name, email, token } = data;
+      localStorage.setItem('token', token!);
+      commit('setUser', { _id, name, email });
+      return data;
+    },
+    async userValidate({ commit }, payload: string) {
+      const { data } = await api.get<UserType>('/users/validate', {
+        headers: {
+          Authorization: payload,
+        },
+      });
+
+      const { _id, name, email, token } = data;
+      commit('setUser', { _id, name, email });
+
+      localStorage.setItem('token', token!);
+
+      return data;
+    },
     async getTodos({ commit }) {
       const { data } = await api.get<TodoType[]>('/todos');
       commit('setTodos', data);
