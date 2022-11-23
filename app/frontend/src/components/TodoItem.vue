@@ -16,14 +16,14 @@ const props = defineProps<{
   todo: TodoType;
 }>();
 
-const id = computed(() => props.todo.id);
+const id = computed(() => props.todo._id);
 const title = ref(props.todo.title);
 const completed = computed(() => props.todo.completed);
 const deleting = ref(false);
 
 const toggleCompleted = () => {
   store.dispatch('changeTodoState', {
-    id: id.value,
+    _id: id.value,
     completed: !completed.value,
   });
 };
@@ -44,7 +44,7 @@ const editTodo = () => {
 
   if (title.value !== props.todo.title) {
     store.dispatch('editTodo', {
-      id: id.value,
+      _id: id.value,
       title: title.value,
     });
     $toast.success('<p class="text-black">Tarefa editada com sucesso!</p>');
