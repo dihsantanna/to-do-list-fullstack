@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SingInForm from '@/components/SingInForm.vue';
+import TodoLogo from '@/components/TodoLogo.vue';
+</script>
 <template>
-  <div></div>
+  <TodoLogo />
+  <SingInForm />
 </template>
