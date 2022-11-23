@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SingUpForm from '@/components/SingUpForm.vue';
+</script>
 <template>
-  <div></div>
+  <SingUpForm />
 </template>
