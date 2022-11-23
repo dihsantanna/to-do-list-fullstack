@@ -31,7 +31,7 @@ export class UserService implements IUserService {
 
     if (!checkPass) throw new Error('Invalid password.');
 
-    const token = this.createToken(id, email);
+   const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' }) as string;
 
     return { id, name, email, token };
   };
