@@ -1,9 +1,4 @@
-import { Response, Router } from 'express';
+import { todoRoute } from './todoRoute';
+import { userRoute } from './userRoute';
 
-const router = Router();
-
-router.get('/', (_request, response: Response) => {
-  return response.status(200).json({ message: 'Hello World' });
-});
-
-export { router };
+export { todoRoute, userRoute };

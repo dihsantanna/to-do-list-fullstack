@@ -1,6 +1,13 @@
-import 'dotenv/config';
-import { app } from './server';
+import { todoRoute, userRoute } from '@api/routes';
+import cors from 'cors';
+import express from 'express';
 
-const PORT = process.env.PORT;
+const app = express();
 
-app.listen(PORT, () => console.log('Server is running!'));
+app.use(express.json());
+app.use(cors());
+
+app.use(userRoute);
+app.use(todoRoute);
+
+export { app };
