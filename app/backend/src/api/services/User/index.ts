@@ -36,9 +36,10 @@ export class UserService implements IUserService {
     return { id, name, email, token };
   };
 
-  createToken = (id: string, email: string): string => {
-    const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
-    return token;
+  validate = async (id: string, email: string) => {
+    const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' }) as string;
+    const { name } = await this.useCases.findByEmail.execute(email);
+    return { name, token };
   };
 }
 
