@@ -63,6 +63,11 @@ export const store = createStore<State>({
       localStorage.setItem('token', token!);
       commit('setUser', { _id, name, email });
     },
+    logout({ commit }) {
+      localStorage.removeItem('token');
+      commit('setUser', {} as UserType);
+      commit('setTodos', []);
+    },
     async userValidate({ commit }, payload: string) {
       const { data } = await api.get<UserType>('/users/validate', {
         headers: {

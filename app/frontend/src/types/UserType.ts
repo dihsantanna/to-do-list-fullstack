@@ -1,6 +1,6 @@
 export interface UserType {
-  _id: number;
-  name: number;
+  _id: string;
+  name: string;
   email: string;
   token?: string;
 }
