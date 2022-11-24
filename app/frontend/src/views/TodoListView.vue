@@ -21,14 +21,10 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div class="px-3 py-10 md:px-10">
-    <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
-      <TodoSpinner v-if="loading" />
-      <template v-else>
-        <TodoForm />
-        <TodoEmpty v-if="isEmpty" />
-        <TodoItems v-else />
-      </template>
-    </div>
-  </div>
+  <TodoSpinner v-if="loading" />
+  <template v-else>
+    <TodoForm />
+    <TodoEmpty v-if="isEmpty" />
+    <TodoItems v-else />
+  </template>
 </template>

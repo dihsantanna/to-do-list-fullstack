@@ -10,6 +10,6 @@ const sortedTodos = computed(() => store.getters.sortedTodos as TodoType[]);
 </script>
 <template>
   <div class="space-y-2">
-    <TodoItem v-for="todo in sortedTodos" :key="`todo-${todo.id}`" :todo="todo" />
+    <TodoItem v-for="todo in sortedTodos" :key="todo._id" :todo="todo" />
   </div>
 </template>
