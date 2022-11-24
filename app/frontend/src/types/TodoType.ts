@@ -1,6 +1,8 @@
 export interface TodoType {
-  id: number;
-  user_id: number;
+  _id: string;
+  userId: string;
   title: string;
   completed: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
