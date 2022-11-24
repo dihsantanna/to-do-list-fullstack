@@ -37,9 +37,9 @@ export class UserController implements IUserController {
   };
 
   validate = async (req: Request, res: Response) => {
-    const { userEmail, userId } = req;
-    const { name, token } = await this.service.validate(userId!, userEmail!);
-    res.status(status.OK).json({ _id: userId, name, email: userEmail, token });
+    const { userEmail } = req;
+    const { _id, name, token } = await this.service.validate(userEmail!);
+    res.status(status.OK).json({ _id, name, email: userEmail, token });
   };
 }
 

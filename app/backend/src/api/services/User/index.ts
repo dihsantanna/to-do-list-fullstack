@@ -20,7 +20,7 @@ export class UserService implements IUserService {
     const password = await hash(data.password, salt);
 
     const { id, name, email } = await this.useCases.create.execute({ ...data, password });
-    const token = Jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    const token = Jwt.sign({ _id: id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
     return { id, name, email, token };
   };
 
@@ -31,15 +31,15 @@ export class UserService implements IUserService {
 
     if (!checkPass) throw new Error('Invalid password.');
 
-   const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' }) as string;
+    const token = Jwt.sign({ _id: id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
 
     return { id, name, email, token };
   };
 
-  validate = async (id: string, email: string) => {
-    const token = Jwt.sign({ id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' }) as string;
-    const { name } = await this.useCases.findByEmail.execute(email);
-    return { name, token };
+  validate = async (email: string) => {
+    const { id, name } = await this.useCases.findByEmail.execute(email);
+    const token = Jwt.sign({ _id: id, email }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    return { _id: id, name, token };
   };
 }
 

@@ -13,7 +13,7 @@ export class TokenValidate {
   validate = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
     if (!token) {
-      res.status(401).json({ error: 'Token is required.' });
+      res.status(status.UNAUTHORIZED).json({ error: 'Token is required.' });
       return;
     }
     try {
@@ -22,7 +22,6 @@ export class TokenValidate {
       await this.findUser.execute(decoded.email);
 
       req.userEmail = decoded.email;
-      req.userId = decoded.id;
 
       next();
     } catch (error) {
