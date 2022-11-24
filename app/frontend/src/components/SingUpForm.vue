@@ -57,7 +57,7 @@ const singUp = () => {
 <template>
   <form
     @submit.prevent="singUp"
-    class="flex items-center flex-col gap-4 justify-between px-4 mt-24 max-w-md"
+    class="flex items-center flex-col gap-4 justify-between px-4 mt-24 mx-auto max-w-md"
   >
     <span class="self-start dark:text-gray-100">Faça o seu cadastro:</span>
     <div
