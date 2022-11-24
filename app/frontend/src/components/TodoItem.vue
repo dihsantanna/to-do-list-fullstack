@@ -20,12 +20,18 @@ const id = computed(() => props.todo._id);
 const title = ref(props.todo.title);
 const completed = computed(() => props.todo.completed);
 const deleting = ref(false);
+const changingStatus = ref(false);
 
 const toggleCompleted = () => {
-  store.dispatch('changeTodoState', {
-    _id: id.value,
-    completed: !completed.value,
-  });
+  changingStatus.value = true;
+  store
+    .dispatch('changeTodoState', {
+      _id: id.value,
+      completed: !completed.value,
+    })
+    .finally(() => {
+      changingStatus.value = false;
+    });
 };
 
 const deleteTodo = () => {
@@ -54,12 +60,13 @@ const editTodo = () => {
 </script>
 <template>
   <div
-    class="bg-gray-900 dark:bg-gray-100 rounded-sm md:hover:scale-[1.02] md:transition-all md:duration-500"
+    class="relative bg-gray-900 dark:bg-gray-100 rounded-sm md:hover:scale-[1.02] md:transition-all md:duration-500"
   >
     <div
       class="flex items-center px-4 py-3 border-b border-gray-600 dark:border-gray-400 last:border-b-0"
     >
       <div class="flex items-center justify-center mr-2">
+        <Spinner v-if="changingStatus" class="w-6 h-6 absolute -left-9 dark:opacity-40" />
         <button @click="toggleCompleted">
           <CheckIcon
             :class="`w-4 h-4 ${completed ? 'fill-green-400' : 'fill-gray-400'}`"

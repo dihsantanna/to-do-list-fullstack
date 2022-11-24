@@ -19,7 +19,7 @@ const logout = () => {
 <template>
   <header class="relative w-screen h-16 flex items-center p-4">
     <template v-if="path === '/to-do-list'">
-      <div class="text-lg text-gray-300 italic">
+      <div class="text-lg text-gray-900 dark:text-gray-300 italic">
         Olá, <br />
         <span class="font-semibold text-green-400 text-xl">{{ name }}</span>
         !
@@ -29,7 +29,7 @@ const logout = () => {
     <button
       @click="logout"
       type="button"
-      class="absolute right-24 text-gray-300 hover:text-green-400"
+      class="absolute right-24 text-gray-900 dark:text-gray-300 hover:text-green-400"
       v-if="path === '/to-do-list'"
     >
       Sair
