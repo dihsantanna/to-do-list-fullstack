@@ -81,7 +81,7 @@ const singUp = () => {
       />
     </div>
     <div
-      class="flex items-center bg-gray-100 dark:bg-gray-900 px-2 py-1 border-l border-green-400 rounded-sm w-full"
+      class="relative flex items-center bg-gray-100 dark:bg-gray-900 px-2 py-1 border-l border-green-400 rounded-sm w-full mb-2"
     >
       <input
         :type="showPass ? 'text' : 'password'"
@@ -97,6 +97,10 @@ const singUp = () => {
         <ShowPass v-if="showPass" class="fill-gray-900 dark:fill-gray-100" />
         <HidePass v-else class="fill-gray-900 dark:fill-gray-100" />
       </button>
+      <span
+        class="absolute text-xs italic text-gray-900 dark:text-gray-200 -bottom-4 left-0 opacity-90"
+        >Senha deve possuir de 8 a 24 caracteres.</span
+      >
     </div>
     <div class="flex w-full items-end justify-between">
       <button
