@@ -21,7 +21,12 @@ export class TokenValidate {
 
       await this.findUser.execute(decoded.email);
 
+      if (!decoded._id) {
+        res.status(status.UNAUTHORIZED).json({ error: 'Invalid token.' });
+        return;
+      }
       req.userEmail = decoded.email;
+      req.userId = decoded._id;
 
       next();
     } catch (error) {
