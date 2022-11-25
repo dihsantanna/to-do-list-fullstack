@@ -4,7 +4,9 @@ WORKDIR /backend
 
 COPY package*.json ./
 
-RUN yarn install
+COPY yarn.lock ./
+
+RUN yarn
 
 COPY . .
 
