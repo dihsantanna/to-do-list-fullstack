@@ -1,6 +1,6 @@
-import { todoRoute, userRoute } from '@api/routes';
 import cors from 'cors';
 import express from 'express';
+import { todoRoute, userRoute } from './api/routes';
 
 const app = express();
 
