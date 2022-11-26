@@ -16,6 +16,7 @@
     ],
     "outDir": "dist",
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
       "@api/*": [
         "./src/api/*"

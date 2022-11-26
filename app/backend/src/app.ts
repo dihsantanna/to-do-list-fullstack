@@ -7,7 +7,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use(userRoute);
-app.use(todoRoute);
+app.get('/', (_req, res) => {
+  res.json({
+    success: true,
+    message: 'todo-api is running'
+  });
+});
+
+app.use('/.netlify/functions/server', userRoute);
+app.use('/.netlify/functions/server', todoRoute);
 
 export { app };
