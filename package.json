@@ -3,5 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Diogo Sant'Anna <diogosantanna08@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "install:npm": "npm i --prefix ./app/backend && npm i --prefix ./app/frontend",
+    "install:yarn": "yarn --cwd ./app/backend install && yarn --cwd ./app/frontend install",
+    "postinstall:yarn": "cd ./app/backend && npx prisma generate",
+    "postinstall:npm": "cd ./app/backend && npx prisma generate",
+    "backend:npm": "npm run dev --prefix ./app/backend",
+    "backend:yarn": "yarn --cwd ./app/backend dev",
+    "frontend:npm": "npm run dev --prefix ./app/frontend",
+    "frontend:yarn": "yarn --cwd ./app/frontend dev"
+  }
 }
