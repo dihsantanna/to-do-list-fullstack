@@ -27,21 +27,14 @@ const addTodo = () => {
 };
 </script>
 <template>
-  <form
-    @submit.prevent="addTodo"
-    class="flex items-center justify-between px-4 bg-gray-100 dark:bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3"
-  >
-    <input
-      v-model="title"
-      placeholder="Adicione uma nova tarefa ..."
-      type="text"
-      class="bg-gray-100 dark:bg-gray-900 dark:placeholder-gray-500 placeholder-gray-900 text-gray-900 dark:text-gray-500 font-light focus:outline-none block w-4/5 appearance-none leading-normal py-3 pr-3"
-    />
+  <form @submit.prevent="addTodo"
+    class="flex items-center justify-between px-4 bg-gray-100 dark:bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3">
+    <input v-model="title" placeholder="Adicione uma nova tarefa ..." type="text"
+      class="bg-gray-100 dark:bg-gray-900 dark:placeholder-gray-500 placeholder-gray-900 text-gray-900 dark:text-gray-500 font-light focus:outline-none block w-4/5 appearance-none leading-normal py-3 pr-3" />
 
     <button
-      class="font-bold drop-shadow-sm text-green-400 text-xs dark:font-semibold focus:outline-none w-1/5 flex items-center justify-center"
-      type="submit"
-    >
+      class="font-bold drop-shadow-sm text-green-400 text-xs hover:text-sm dark:font-semibold focus:outline-none w-1/5 flex items-center justify-center"
+      type="submit">
       {{ !adding ? 'ADICIONAR' : null }}
       <Spinner v-if="adding" class="w-6 h-6" />
     </button>

@@ -26,12 +26,9 @@ const logout = () => {
       </div>
     </template>
     <DarkModeSelector />
-    <button
-      @click="logout"
-      type="button"
-      class="absolute right-24 text-gray-900 dark:text-gray-300 hover:text-green-400"
-      v-if="path === '/to-do-list'"
-    >
+    <button @click="logout" type="button"
+      class="absolute right-24 text-gray-900 dark:text-gray-300 hover:text-green-400 dark:hover:text-green-400"
+      v-if="path === '/to-do-list'">
       Sair
     </button>
   </header>
