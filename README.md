@@ -10,6 +10,8 @@ Você pode conferir o deploy da aplicação acessando [https://to-do-list-dihsan
 
 *** Você pode se cadastrar com qualquer email no formato `email@email.com`, eu não coloquei confirmação de email para facilitar o teste manual, pois a aplicação é somente demonstrativa.
 
+******O PRIMEIRO ACESSO PODE DEMORAR POR QUE O BACK-END PODE ESTAR PAUSADO PELO SERVIDOR GRATUITO.***
+
 ---
 
 ![demonstração da pagina](./demonstracao.gif)
